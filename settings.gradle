@@ -1,1 +1,1 @@
-include ':app', ':android', ':kotlin', ':encryption'
+include ':app', ':android', ':kotlin', ':encryption', ':imageprocessor'
