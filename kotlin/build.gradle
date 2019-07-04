@@ -9,5 +9,5 @@ dependencies {
     implementation "javax.inject:javax.inject:1"
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
