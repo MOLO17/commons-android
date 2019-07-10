@@ -1,4 +1,4 @@
-package com.molo17.commons.kotlin.rx
+package com.molo17.commons.android
 
 import io.reactivex.Flowable
 import io.reactivex.Observable
