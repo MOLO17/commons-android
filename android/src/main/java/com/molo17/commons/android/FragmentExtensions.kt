@@ -33,12 +33,11 @@ fun Fragment.observeErrorsOf(errorHandler: UiErrorHandler) {
     errorHandler.errorMessageResIds().observe(this, Observer {
         it.popValue()?.also { resId ->
             val msg = getString(resId)
-            activity?.showErrorAlert(msg)
+            UiErrorHandlerPlugins.onError(this, msg)
         }
     })
 }
 
 interface HasViewModelFactory {
-
     var viewModelFactory: ViewModelProvider.Factory
 }
