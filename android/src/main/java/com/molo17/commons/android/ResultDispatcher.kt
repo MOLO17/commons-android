@@ -18,6 +18,6 @@ abstract class ResultDispatcher : ViewModel()
 /**
  * Convenience class for obtaining an instance of a [ResultDispatcher] of the given class [type].
  */
-abstract class ResultDispatcherFactory<T>(private val type: Class<T>) where T : ResultDispatcher {
+abstract class ResultDispatcherFactory<T>(private val type: Class<out T>) where T : ResultDispatcher {
     fun get(fragment: Fragment): T = ViewModelProviders.of(fragment.requireActivity()).get(type)
 }
