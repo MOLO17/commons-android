@@ -11,7 +11,7 @@ internal fun adjustImageOrientation(path: String, imageProcessor: ImageProcessor
         return PictureResult.Failure(ExifDataException())
     }
     return try {
-        imageProcessor.rotateImage(path, degrees)
+        imageProcessor.rotateImage(path, degrees ?: 0)
         PictureResult.Success(File(path))
     } catch (e: IOException) {
         PictureResult.Failure(FileSaveException())

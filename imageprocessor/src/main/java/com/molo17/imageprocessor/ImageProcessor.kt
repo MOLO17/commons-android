@@ -8,7 +8,7 @@ import android.graphics.Rect
  */
 interface ImageProcessor {
 
-    fun getExifRotation(path: String): Int
+    fun getExifRotation(path: String): Int?
 
     fun getImageSize(path: String): Size
 

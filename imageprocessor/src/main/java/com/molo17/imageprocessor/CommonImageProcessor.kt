@@ -6,13 +6,14 @@ import java.io.IOException
 import kotlin.math.abs
 
 abstract class CommonImageProcessor : ImageProcessor {
-    override fun getExifRotation(path: String): Int {
+    override fun getExifRotation(path: String): Int? {
         val exif = ExifInterface(path)
         return when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+            ExifInterface.ORIENTATION_NORMAL -> 0
             ExifInterface.ORIENTATION_ROTATE_90 -> 90
             ExifInterface.ORIENTATION_ROTATE_180 -> 180
             ExifInterface.ORIENTATION_ROTATE_270 -> 270
-            else -> 0
+            else -> null
         }
     }
 
