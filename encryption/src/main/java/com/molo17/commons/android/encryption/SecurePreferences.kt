@@ -2,8 +2,11 @@ package com.molo17.commons.android.encryption
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.molo17.commons.android.encryption.symmetric.Api23SymmetricEncryptor
+import com.molo17.commons.android.encryption.symmetric.LegacySymmetricEncryptor
 import com.molo17.commons.android.encryption.symmetric.SymmetricEncryptor
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 /**
@@ -103,6 +106,27 @@ class SecurePreferences @Inject constructor(
                 value?.toByteArray(Charsets.ISO_8859_1)
                     ?.let(symmetricEncryptor::encrypt)
                     ?.let(base64Converter::encodeToString)
+            )
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Factory
+    ///////////////////////////////////////////////////////////////////////////
+
+    companion object {
+        fun create(context: Context): SharedPreferences {
+            val base64Converter = Base64Converter()
+            val keysHelper = { KeysHelper() }
+            val persister = { PrefsIvPersister(context, base64Converter) }
+            return SecurePreferences(
+                context = context,
+                symmetricEncryptor = SymmetricEncryptor(
+                    api23 = Provider { Api23SymmetricEncryptor(keysHelper(), persister()) },
+                    legacy = Provider { LegacySymmetricEncryptor(persister()) }
+                ),
+                base64Converter = base64Converter,
+                hashHelper = HashHelper(base64Converter)
             )
         }
     }
