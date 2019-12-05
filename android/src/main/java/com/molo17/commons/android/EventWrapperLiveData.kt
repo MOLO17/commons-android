@@ -23,9 +23,27 @@ class EventLiveData<T> : MutableLiveData<Event<T>>()
 fun <T> MutableLiveData<Event<T>>.postEvent(value: T) = postValue(Event(value))
 
 fun <T> LiveData<Event<T>>.unwrapEvent(): LiveData<T> = object : LiveData<T>() {
+
+    private val retainedObservers = mutableMapOf<Observer<in T>, Observer<in Event<T>>>()
+
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         this@unwrapEvent.observe(owner, Observer { event ->
             event?.popValue()?.also(observer::onChanged)
         })
+    }
+
+    override fun observeForever(observer: Observer<in T>) {
+        val wrappedObserver = Observer<Event<T>> { event ->
+            event?.popValue()?.also(observer::onChanged)
+        }
+        retainedObservers[observer] = wrappedObserver
+        this@unwrapEvent.observeForever(wrappedObserver)
+    }
+
+    override fun removeObserver(observer: Observer<in T>) {
+        retainedObservers[observer]?.let { retained ->
+            this@unwrapEvent.removeObserver(retained)
+            retainedObservers.remove(observer)
+        }
     }
 }
