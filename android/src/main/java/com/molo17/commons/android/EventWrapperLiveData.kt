@@ -28,4 +28,10 @@ fun <T> LiveData<Event<T>>.unwrapEvent(): LiveData<T> = object : LiveData<T>() {
             event?.popValue()?.also(observer::onChanged)
         })
     }
+
+    override fun observeForever(observer: Observer<in T>) {
+        this@unwrapEvent.observeForever { event ->
+            event?.popValue()?.also(observer::onChanged)
+        }
+    }
 }
