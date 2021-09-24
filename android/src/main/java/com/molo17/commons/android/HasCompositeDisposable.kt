@@ -1,8 +1,7 @@
 package com.molo17.commons.android
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 /**
  * Created by Damiano Giusti on 2019-05-14.

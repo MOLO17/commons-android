@@ -1,25 +1,25 @@
 package com.molo17.commons.android
 
 import android.app.Activity
-import org.jetbrains.anko.alert
+import androidx.appcompat.app.AlertDialog
 
 /**
  * Created by Damiano Giusti on 2019-06-04.
  */
 
 fun Activity.showErrorAlert(msg: String) {
-    alert {
-        titleResource = R.string.error
-        message = msg
-        positiveButton(R.string.accept) {}
-    }.show()
+    AlertDialog.Builder(this)
+        .setTitle(R.string.error)
+        .setMessage(msg)
+        .setPositiveButton(R.string.accept) { _, _ -> }
+        .show()
 }
 
 
 fun Activity.showWarningAlert(msg: String) {
-    alert {
-        titleResource = R.string.warning
-        message = msg
-        positiveButton(R.string.accept) {}
-    }.show()
+    AlertDialog.Builder(this)
+        .setTitle(R.string.warning)
+        .setMessage(msg)
+        .setPositiveButton(R.string.accept) { _, _ -> }
+        .show()
 }

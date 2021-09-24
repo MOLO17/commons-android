@@ -21,7 +21,7 @@ object AndroidCameraX {
     }
 
     internal inline fun <reified T> getViewModel(fragment: CameraFragment): T where T : CameraViewModel, T : ViewModel =
-        ViewModelProviders.of(fragment, viewModelFactory).get(T::class.java)
+        ViewModelProvider(fragment, viewModelFactory).get(T::class.java)
 
     private val viewModelFactory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")

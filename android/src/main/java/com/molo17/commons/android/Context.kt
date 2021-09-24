@@ -10,5 +10,5 @@ import android.content.Context
 
 fun Context.copy(text: String) {
     val manager = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
-    manager.primaryClip = ClipData.newPlainText(text, text)
+    manager.setPrimaryClip(ClipData.newPlainText(text, text))
 }
