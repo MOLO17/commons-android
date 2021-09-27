@@ -65,19 +65,20 @@ internal class Api21CameraFragment : CameraFragment() {
         textureView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> updateTransform() }
 
         textureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
-            override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
+            override fun onSurfaceTextureAvailable(p0: SurfaceTexture, p1: Int, p2: Int) {
+                textureView.post { startPreview() }
             }
 
-            override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {
+            override fun onSurfaceTextureSizeChanged(p0: SurfaceTexture, p1: Int, p2: Int) {
             }
 
-            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
+            override fun onSurfaceTextureDestroyed(p0: SurfaceTexture): Boolean {
                 return true
             }
 
-            override fun onSurfaceTextureAvailable(surface: SurfaceTexture?, width: Int, height: Int) {
-                textureView.post { startPreview() }
+            override fun onSurfaceTextureUpdated(p0: SurfaceTexture) {
             }
+
         }
     }
 

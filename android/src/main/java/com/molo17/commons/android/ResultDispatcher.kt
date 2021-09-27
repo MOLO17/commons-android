@@ -2,7 +2,7 @@ package com.molo17.commons.android
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * Created by Damiano Giusti on 2019-06-17.
@@ -19,5 +19,5 @@ abstract class ResultDispatcher : ViewModel()
  * Convenience class for obtaining an instance of a [ResultDispatcher] of the given class [type].
  */
 abstract class ResultDispatcherFactory<T>(private val type: Class<out T>) where T : ResultDispatcher {
-    fun get(fragment: Fragment): T = ViewModelProviders.of(fragment.requireActivity()).get(type)
+    fun get(fragment: Fragment): T = ViewModelProvider(fragment.requireActivity()).get(type)
 }

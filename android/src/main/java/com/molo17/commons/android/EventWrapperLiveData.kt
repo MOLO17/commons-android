@@ -27,7 +27,7 @@ fun <T> LiveData<Event<T>>.unwrapEvent(): LiveData<T> = object : LiveData<T>() {
     private val retainedObservers = mutableMapOf<Observer<in T>, Observer<in Event<T>>>()
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        this@unwrapEvent.observe(owner, Observer { event ->
+        this@unwrapEvent.observe(owner, { event ->
             event?.popValue()?.also(observer::onChanged)
         })
     }

@@ -1,9 +1,9 @@
 package com.molo17.commons.android
 
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.Disposable
 
 ///////////////////////////////////////////////////////////////////////////
 // Result handling
@@ -21,17 +21,17 @@ data class RxResult<out T> internal constructor(
 /**
  * Applies the [RxResult] pattern to the underlying Rx stream.
  */
-fun <T> Observable<T>.toResult(): Observable<RxResult<T>> = this
+fun <T> Observable<T>.toResult(): Observable<out RxResult<T>> = this
     .map { RxResult(value = it) }
-    .startWith(RxResult(isLoading = true))
+    .startWithItem(RxResult(isLoading = true))
     .onErrorResumeNext { error: Throwable -> Observable.just(RxResult(error = error)) }
 
 /**
  * Applies the [RxResult] pattern to the underlying Rx stream.
  */
-fun <T> Single<T>.toResult(): Observable<RxResult<T>> = toObservable().toResult()
+fun <T> Single<T>.toResult(): Observable<out RxResult<T>> = toObservable().toResult()
 
-fun <T> Observable<RxResult<T>>.subscribeBy(
+fun <T> Observable<out RxResult<T>>.subscribeBy(
     onSuccess: ((T) -> Unit)? = null,
     onError: ((Throwable) -> Unit)? = null,
     onLoading: (() -> Unit)? = null,

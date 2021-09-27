@@ -14,4 +14,4 @@ fun TextView.setAsPassword() {
     inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 }
 
-fun lowercaseInputFilter() = InputFilter { source, _, _, _, _, _ -> source.toString().toLowerCase() }
+fun lowercaseInputFilter() = InputFilter { source, _, _, _, _, _ -> source.toString().lowercase() }

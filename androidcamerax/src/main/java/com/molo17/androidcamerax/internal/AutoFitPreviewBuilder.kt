@@ -92,7 +92,7 @@ class AutoFitPreviewBuilder private constructor(config: PreviewConfig,
             parent.removeView(viewFinder)
             parent.addView(viewFinder, 0)
 
-            viewFinder.surfaceTexture = it.surfaceTexture
+            viewFinder.setSurfaceTexture(it.surfaceTexture)
             bufferRotation = it.rotationDegrees
             val rotation = getDisplaySurfaceRotation(viewFinder.display)
             updateTransform(viewFinder, rotation, it.textureSize, viewFinderDimens)
