@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.molo17.androidcamerax">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-sdk tools:overrideLibrary="androidx.camera.camera2, androidx.camera.core" />
+
+    <application>
+        <provider
+            android:name=".api21.Camera2Initializer"
+            android:authorities="${applicationId}.camerax-init"
+            android:exported="true" />
+    </application>
+</manifest>
